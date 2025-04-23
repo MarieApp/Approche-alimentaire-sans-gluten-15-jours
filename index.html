@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Régime Sans Gluglu</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #ff6f61;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        main {
+            padding: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        section {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            color: #ff6f61;
+            margin-bottom: 0.5rem;
+        }
+
+        .meal {
+            margin-bottom: 1rem;
+        }
+
+        .meal-title {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .instructions {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 0.3rem;
+        }
+
+        .water-tracker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .water-cup {
+            width: 40px;
+            height: 40px;
+            background-color: #e0e0e0;
+            border: 2px solid #007BFF;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .water-cup.filled {
+            background-color: #007BFF;
+        }
+
+        .weight-tracker {
+            margin-top: 1rem;
+        }
+
+        .weight-tracker label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .weight-tracker input {
+            margin-top: 0.5rem;
+            padding: 0.3rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+        }
+
+        .nav-button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .nav-button:hover {
+            background-color: #e55b51;
+            transform: scale(1.05);
+        }
+
+        .nav-button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .congratulations {
+            text-align: center;
+            padding: 2rem 1rem;
+            background-color: #fff8e7;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 0.9rem;
+            }
+
+            .nav-button {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mon Régime Sans Gluglu</h1>
+    </header>
+
+    <main>
+        <section id="day-content">
+            <!-- Contenu dynamique pour chaque jour -->
+        </section>
+
+        <div class="navigation">
+            <button id="prev-day" class="nav-button" disabled>◀ Jour Précédent</button>
+            <button id="next-day" class="nav-button">Jour Suivant ▶</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 - Mon Régime Sans Gluglu</p>
+    </footer>
+
+    <script>
+        const meals = [
+            { breakfast: { title: "Pain sans gluten avec beurre d'amande", instructions: "Tartinez du pain sans gluten avec du beurre d'amande." },
+              lunch: { title: "Poulet grillé et légumes vapeur", instructions: "Grillez un filet de poulet et servez-le avec des légumes vapeur." },
+              dinner: { title: "Légumes grillés et filet de poisson", instructions: "Faites griller des légumes et servez avec un filet de poisson." },
+              snack: { title: "Une poignée de noix", instructions: "Prenez une petite poignée de noix nature." } },
+            { breakfast: { title: "Omelette nature avec tomates", instructions: "Faites une omelette avec 2 œufs et des dés de tomates fraîches." },
+              lunch: { title: "Filet de poulet et riz complet", instructions: "Faites cuire un filet de poulet et servez avec du riz complet." },
+              dinner: { title: "Salade de quinoa aux légumes", instructions: "Mélangez du quinoa cuit avec des légumes frais." },
+              snack: { title: "Carré de chocolat noir", instructions: "Prenez un carré de chocolat noir (70% de cacao)." } },
+            { breakfast: { title: "Pain sans gluten et purée d'avocat", instructions: "Tartinez du pain sans gluten avec de l'avocat écrasé et un filet de citron." },
+              lunch: { title: "Poulet au curry avec riz basmati", instructions: "Faites revenir du poulet avec du curry et servez avec du riz basmati." },
+              dinner: { title: "Salade de lentilles aux légumes", instructions: "Mélangez des lentilles cuites avec des légumes frais." },
+              snack: { title: "Un yaourt nature", instructions: "Prenez un yaourt nature sans sucre." } },
+            { breakfast: { title: "Tartines avec purée d'amande", instructions: "Tartinez du pain sans gluten avec de la purée d'amande." },
+              lunch: { title: "Poulet rôti et patates douces", instructions: "Faites cuire un poulet rôti avec des patates douces rôties." },
+              dinner: { title: "Ratatouille maison", instructions: "Préparez une ratatouille avec courgettes, aubergines et tomates." },
+              snack: { title: "Bâtonnets de carotte", instructions: "Coupez des carottes en bâtonnets à grignoter." } },
+            { breakfast: { title: "Fromage blanc et fruits frais", instructions: "Ajoutez des fruits frais à du fromage blanc nature." },
+              lunch: { title: "Steak haché et légumes verts", instructions: "Faites cuire un steak haché avec des légumes verts vapeur." },
+              dinner: { title: "Salade de riz et thon", instructions: "Préparez une salade de riz complet avec du thon, des olives et des tomates cerises." },
+              snack: { title: "Un fruit frais", instructions: "Prenez un fruit de saison." } },
+            { breakfast: { title: "Tartines avec confiture maison", instructions: "Prenez du pain sans gluten avec une confiture maison." },
+              lunch: { title: "Poulet au citron et légumes vapeur", instructions: "Marinez le poulet au citron et servez avec des légumes vapeur." },
+              dinner: { title: "Gratin de légumes", instructions: "Préparez un gratin de légumes avec une béchamel sans gluten." },
+              snack: { title: "Un carré de chocolat noir", instructions: "Savourez un carré de chocolat noir." } },
+            { breakfast: { title: "Pain sans gluten avec beurre de cacahuète", instructions: "Tartinez du pain sans gluten avec un peu de beurre de cacahuète." },
+              lunch: { title: "Saumon grillé avec légumes vapeur", instructions: "Faites griller un pavé de saumon et servez-le avec des légumes vapeur." },
+              dinner: { title: "Riz sauté aux légumes", instructions: "Faites sauter du riz complet avec des légumes frais." },
+              snack: { title: "Une poignée d'amandes", instructions: "Prenez une poignée d'amandes pour l'encas." } },
+            { breakfast: { title: "Pain sans gluten avec purée d'amande", instructions: "Tartinez du pain sans gluten avec de la purée d'amande." },
+              lunch: { title: "Poulet mariné et légumes au four", instructions: "Faites cuire du poulet mariné et des légumes au four." },
+              dinner: { title: "Salade composée", instructions: "Mélangez salade verte, tomates, olives et huile d'olive." },
+              snack: { title: "Un fruit frais", instructions: "Prenez un fruit de saison." } },
+            { breakfast: { title: "Galette de riz avec purée d'avocat", instructions: "Tartinez une galette de riz avec de l'avocat écrasé." },
+              lunch: { title: "Poulet au paprika avec quinoa", instructions: "Marinez du poulet au paprika et servez avec du quinoa." },
+              dinner: { title: "Tofu grillé et légumes croquants", instructions: "Grillez du tofu et servez avec des légumes croquants." },
+              snack: { title: "Un carré de chocolat noir", instructions: "Savourez un carré de chocolat noir." } },
+            { breakfast: { title: "Pain sans gluten avec confiture", instructions: "Prenez du pain sans gluten avec une confiture sans sucre ajouté." },
+              lunch: { title: "Poulet à la moutarde et légumes", instructions: "Marinez le poulet avec de la moutarde et servez avec des légumes vapeur." },
+              dinner: { title: "Gratin de courgettes", instructions: "Préparez un gratin léger avec des courgettes et du fromage." },
+              snack: { title: "Bâtonnets de concombre", instructions: "Coupez des concombres en bâtonnets prêts à grignoter." } },
+            { breakfast: { title: "Crêpes de sarrasin nature", instructions: "Préparez une crêpe de sarrasin nature ou légèrement garnie." },
+              lunch: { title: "Poulet rôti avec légumes", instructions: "Faites cuire un poulet rôti avec des légumes de saison." },
+              dinner: { title: "Soupe de légumes maison", instructions: "Préparez une soupe maison avec des légumes frais." },
+              snack: { title: "Un fruit au choix", instructions: "Prenez un fruit frais de votre choix." } },
+            { breakfast: { title: "Pain sans gluten avec huile d'olive", instructions: "Tartinez du pain sans gluten avec un peu d'huile d'olive." },
+              lunch: { title: "Filet de poisson et riz complet", instructions: "Faites cuire un filet de poisson accompagné de riz complet." },
+              dinner: { title: "Salade de pois chiches", instructions: "Mélangez pois chiches, tomates et oignons rouges." },
+              snack: { title: "Une poignée de noisettes", instructions: "Prenez quelques noisettes pour l'encas." } },
+            { breakfast: { title: "Tartines avec purée d'avocat", instructions: "Tartinez du pain sans gluten avec de l'avocat écrasé." },
+              lunch: { title: "Poulet grillé aux herbes", instructions: "Faites griller du poulet mariné aux herbes fraîches." },
+              dinner: { title: "Salade de lentilles et légumes", instructions: "Mélangez des lentilles cuites avec des légumes frais." },
+              snack: { title: "Un fruit frais", instructions: "Prenez un fruit de saison." } },
+            { breakfast: { title: "Pain sans gluten et beurre d’amande", instructions: "Tartinez du pain avec du beurre d’amande nature." },
+              lunch: { title: "Filet de poisson grillé", instructions: "Faites griller un filet de poisson et servez avec des légumes verts." },
+              dinner: { title: "Ratatouille maison", instructions: "Préparez une ratatouille avec des légumes frais." },
+              snack: { title: "Quelques noix", instructions: "Prenez une poignée de noix nature." } },
+            { breakfast: { title: "Pain sans gluten avec confiture maison", instructions: "Prenez une tartine de confiture maison sur du pain sans gluten." },
+              lunch: { title: "Poulet au citron", instructions: "Faites cuire du poulet avec une marinade citronnée." },
+              dinner: { title: "Poêlée de légumes variés", instructions: "Faites sauter des légumes variés dans un peu d'huile d'olive." },
+              snack: { title: "Un fruit au choix", instructions: "Prenez un fruit de saison." } }
+        ];
+
+        const weightLog = Array(15).fill(""); // Tableau pour enregistrer le poids sur 15 jours
+        let currentDay = 1;
+        let initialWeight = ""; // Poids initial
+        const totalDays = meals.length;
+
+        const dayContent = document.getElementById("day-content");
+        const prevDayButton = document.getElementById("prev-day");
+        const nextDayButton = document.getElementById("next-day");
+
+        function displayDay(dayIndex) {
+            if (dayIndex > totalDays) {
+                displayCongratulations(); // Afficher la page de félicitations après le dernier jour
+                return;
+            }
+
+            const day = meals[dayIndex - 1];
+            const weight = weightLog[dayIndex - 1] || "";
+
+            dayContent.innerHTML = `
+                <h2>Jour ${dayIndex}</h2>
+                <div class="meal">
+                    <p class="meal-title">Petit-déjeuner : ${day.breakfast.title}</p>
+                    <p class="instructions">${day.breakfast.instructions}</p>
+                </div>
+                <div class="meal">
+                    <p class="meal-title">Déjeuner : ${day.lunch.title}</p>
+                    <p class="instructions">${day.lunch.instructions}</p>
+                </div>
+                <div class="meal">
+                    <p class="meal-title">Dîner : ${day.dinner.title}</p>
+                    <p class="instructions">${day.dinner.instructions}</p>
+                </div>
+                <div class="meal">
+                    <p class="meal-title">Encas : ${day.snack.title}</p>
+                    <p class="instructions">${day.snack.instructions}</p>
+                </div>
+                <div class="water-tracker">
+                    <h3>Suivi de l'eau :</h3>
+                    ${Array.from({ length: 8 }, (_, i) => `<div class="water-cup" onclick="fillCup(this)"></div>`).join("")}
+                </div>
+                <div class="weight-tracker">
+                    <h3>Suivi du poids :</h3>
+                    <label for="weight-input">Poids (kg) :</label>
+                    <input type="number" id="weight-input" value="${weight}" placeholder="Entrez votre poids" oninput="updateWeight(${dayIndex}, this.value)" />
+                </div>
+            `;
+
+            prevDayButton.disabled = dayIndex === 1;
+            nextDayButton.disabled = dayIndex > totalDays;
+        }
+
+        function displayCongratulations() {
+            const finalWeight = weightLog[totalDays - 1] || ""; // Poids final
+            const weightLost = initialWeight && finalWeight ? (initialWeight - finalWeight).toFixed(1) : null;
+
+            dayContent.innerHTML = `
+                <div class="congratulations">
+                    <h2>Félicitations 🎉</h2>
+                    <p>Vous avez terminé les 15 jours de votre programme !</p>
+                    ${weightLost !== null ? 
+                        `<p>Vous avez perdu <strong>${weightLost} kg</strong> pendant cette période. Bravo ! 🎉</p>` 
+                        : `<p>Merci d'avoir suivi ce régime avec nous. Nous espérons que vous vous sentez en meilleure santé et plein(e) d'énergie.</p>`}
+                    <p>Continuez sur cette belle lancée et prenez soin de vous !</p>
+                </div>
+            `;
+
+            prevDayButton.disabled = false;
+            nextDayButton.disabled = true;
+        }
+
+        function updateWeight(dayIndex, weight) {
+            weightLog[dayIndex - 1] = weight;
+
+            // Demander le poids initial si c'est le jour 1
+            if (dayIndex === 1 && !initialWeight) {
+                initialWeight = weight;
+            }
+        }
+
+        prevDayButton.addEventListener("click", () => {
+            if (currentDay > 1) {
+                currentDay--;
+                displayDay(currentDay);
+            }
+        });
+
+        nextDayButton.addEventListener("click", () => {
+            if (currentDay <= totalDays) {
+                currentDay++;
+                displayDay(currentDay);
+            }
+        });
+
+        function fillCup(cup) {
+            cup.classList.toggle("filled");
+        }
+
+        displayDay(currentDay);
+    </script>
+</body>
+</html>
