@@ -3,336 +3,1110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Régime Sans Gluglu</title>
+    <title>Régime Amincissant Sans Gluten - 15 Jours</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #e67e22;
+            --secondary-color: #27ae60;
+            --light-color: #f9f3e9;
+            --dark-color: #34495e;
+            --accent-color: #f39c12;
+        }
+        
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark-color);
+            background-color: var(--light-color);
         }
-
-        header {
-            background: #ff6f61;
+        
+        .header {
+            background-color: var(--primary-color);
             color: white;
-            padding: 1rem 0;
-            text-align: center;
         }
-
-        main {
-            padding: 1rem;
-            max-width: 800px;
-            margin: 0 auto;
+        
+        .nav-item {
+            background-color: white;
+            color: var(--dark-color);
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
         }
-
-        section {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1rem;
-            margin-bottom: 1.5rem;
+        
+        .nav-item:hover, .nav-item.active {
+            border-bottom: 3px solid var(--secondary-color);
+            color: var(--secondary-color);
         }
-
-        h2 {
-            color: #ff6f61;
-            margin-bottom: 0.5rem;
+        
+        .meal-card {
+            border-left: 4px solid var(--primary-color);
+            background-color: white;
         }
-
-        .meal {
-            margin-bottom: 1rem;
-        }
-
+        
         .meal-title {
-            font-weight: bold;
-            color: #333;
+            color: var(--primary-color);
         }
-
-        .instructions {
-            font-size: 0.9rem;
-            color: #555;
-            margin-top: 0.3rem;
+        
+        .day-title {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
         }
-
-        .water-tracker {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .water-cup {
-            width: 40px;
-            height: 40px;
-            background-color: #e0e0e0;
-            border: 2px solid #007BFF;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .water-cup.filled {
-            background-color: #007BFF;
-        }
-
-        .weight-tracker {
-            margin-top: 1rem;
-        }
-
-        .weight-tracker label {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .weight-tracker input {
-            margin-top: 0.5rem;
-            padding: 0.3rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 100%;
-            max-width: 200px;
-        }
-
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin: 1rem 0;
-        }
-
-        .nav-button {
-            background-color: #ff6f61;
+        
+        .btn-primary {
+            background-color: var(--primary-color);
             color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, background-color 0.2s;
         }
-
-        .nav-button:hover {
-            background-color: #e55b51;
-            transform: scale(1.05);
+        
+        .btn-primary:hover {
+            background-color: var(--accent-color);
         }
-
-        .nav-button:disabled {
-            background-color: #ddd;
-            cursor: not-allowed;
-            transform: none;
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
         }
-
-        .congratulations {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: #fff8e7;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        
+        .btn-secondary:hover {
+            background-color: #219653;
         }
-
+        
         footer {
-            background: #333;
+            background-color: var(--dark-color);
             color: white;
-            text-align: center;
-            padding: 1rem 0;
-            margin-top: 2rem;
         }
-
-        @media (max-width: 768px) {
-            body {
-                font-size: 0.9rem;
+        
+        .tip-card {
+            border-left: 4px solid var(--secondary-color);
+            background-color: white;
+        }
+        
+        .tip-title {
+            color: var(--secondary-color);
+        }
+        
+        .progress-bar {
+            background-color: #eee;
+            border-radius: 13px;
+            height: 20px;
+            padding: 3px;
+            width: 100%;
+            margin: 15px 0;
+        }
+        
+        .progress {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 10px;
+            height: 14px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .legal-notice {
+            font-size: 0.8rem;
+            color: #777;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        /* Mobile responsiveness improvements */
+        @media (max-width: 640px) {
+            .container {
+                padding: 0.5rem;
             }
-
-            .nav-button {
+            
+            .meal-card, .tip-card {
+                padding: 0.75rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .nav-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scroll-behavior: smooth;
+            }
+            
+            .nav-items {
+                width: max-content;
+                padding-bottom: 5px;
+            }
+            
+            .nav-item {
+                padding: 0.5rem 0.75rem;
                 font-size: 0.9rem;
-                padding: 0.6rem 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Mon Régime Sans Gluglu</h1>
-    </header>
-
-    <main>
-        <section id="day-content">
-            <!-- Contenu dynamique pour chaque jour -->
-        </section>
-
-        <div class="navigation">
-            <button id="prev-day" class="nav-button" disabled>◀ Jour Précédent</button>
-            <button id="next-day" class="nav-button">Jour Suivant ▶</button>
+    <header class="header p-4 shadow-md">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <h1 class="text-2xl md:text-3xl font-bold text-center md:text-left mb-3 md:mb-0">Régime Amincissant Sans Gluten - 15 Jours</h1>
+            <div class="text-sm bg-white bg-opacity-20 px-3 py-1 rounded-full">
+                <i class="fas fa-info-circle mr-1"></i> Programme informatif uniquement
+            </div>
         </div>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 - Mon Régime Sans Gluglu</p>
+    </header>
+    
+    <div class="container mx-auto p-4">
+        <div class="nav-container overflow-x-auto mb-6">
+            <nav class="nav-items flex space-x-1 md:space-x-2 p-1 bg-gray-100 rounded-lg">
+                <button class="nav-item px-3 py-2 rounded-md text-sm font-medium active" onclick="showTab('plan')">
+                    <i class="fas fa-calendar-alt mr-1"></i> Plan Alimentaire
+                </button>
+                <button class="nav-item px-3 py-2 rounded-md text-sm font-medium" onclick="showTab('courses')">
+                    <i class="fas fa-shopping-basket mr-1"></i> Liste de Courses
+                </button>
+                <button class="nav-item px-3 py-2 rounded-md text-sm font-medium" onclick="showTab('suivi')">
+                    <i class="fas fa-chart-line mr-1"></i> Suivi de Progression
+                </button>
+                <button class="nav-item px-3 py-2 rounded-md text-sm font-medium" onclick="showTab('conseils')">
+                    <i class="fas fa-lightbulb mr-1"></i> Conseils
+                </button>
+                <button class="nav-item px-3 py-2 rounded-md text-sm font-medium" onclick="showTab('legal')">
+                    <i class="fas fa-gavel mr-1"></i> Mentions Légales
+                </button>
+            </nav>
+        </div>
+        
+        <!-- Tab Content -->
+        <div class="tab-content active" id="plan">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold mb-4">Principes du Régime</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>Déficit calorique modéré de 300-500 calories par jour</li>
+                    <li>3 repas principaux + 1 collation (optionnelle)</li>
+                    <li>Boire 1,5 à 2 litres d'eau par jour</li>
+                    <li>Respecter des horaires réguliers pour les repas</li>
+                    <li>Éviter de manger tard le soir</li>
+                </ul>
+            </div>
+            
+            <h2 class="text-xl font-bold mb-4">Plan sur 15 Jours</h2>
+            
+            <div class="day-selector flex flex-wrap gap-2 mb-6">
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn active" onclick="showDay(1)">Jour 1</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(2)">Jour 2</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(3)">Jour 3</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(4)">Jour 4</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(5)">Jour 5</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(6)">Jour 6</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(7)">Jour 7</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(8)">Jour 8</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(9)">Jour 9</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(10)">Jour 10</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(11)">Jour 11</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(12)">Jour 12</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(13)">Jour 13</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(14)">Jour 14</button>
+                <button class="btn-primary px-3 py-1 rounded text-sm day-btn" onclick="showDay(15)">Jour 15</button>
+            </div>
+            
+            <!-- Day 1 -->
+            <div class="day-content active" id="day-1">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 1</h3>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>2 œufs brouillés + 1 tranche de pain sans gluten + 1 pomme</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>150g de poulet grillé + 100g de riz brun + légumes variés (courgettes, poivrons) + 1 c. à soupe d'huile d'olive</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 yaourt nature + 10 amandes</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>150g de poisson blanc + 200g de patates douces rôties + salade verte + 1 c. à soupe d'huile d'olive</p>
+                </div>
+            </div>
+            
+            <!-- Day 2 -->
+            <div class="day-content hidden" id="day-2">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 2</h3>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>Yaourt nature (150g) + fruits frais (100g) + 1 c. à soupe de graines de chia</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Salade composée : thon (100g) + quinoa (50g cuit) + tomates + concombre + 1 c. à soupe d'huile d'olive</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 fruit + 20g de fromage</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Omelette aux légumes (2 œufs) + 100g de pommes de terre sautées + salade verte</p>
+                </div>
+            </div>
+            
+            <!-- Day 3 -->
+            <div class="day-content hidden" id="day-3">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 3</h3>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>Fromage blanc (150g) + 1 c. à café de miel + 1 poignée de fruits rouges + 5 noix</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Bœuf grillé (120g) + 100g de riz brun + légumes grillés + 1 c. à soupe d'huile d'olive</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 compote sans sucre ajouté + 1 poignée d'amandes</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Filet de saumon (150g) + ratatouille + 100g de quinoa</p>
+                </div>
+            </div>
+            
+            <!-- Day 4 -->
+            <div class="day-content hidden" id="day-4">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 4</h3>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>2 œufs au plat + 1 tranche de jambon + 1 tranche de pain sans gluten</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Salade de lentilles (100g) + dés de poulet (100g) + tomates + poivrons + vinaigrette légère</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 yaourt nature + 1 fruit</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Papillote de poisson (150g) + légumes variés + 150g de pommes de terre</p>
+                </div>
+            </div>
+            
+            <!-- Day 5 -->
+            <div class="day-content hidden" id="day-5">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 5</h3>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>Yaourt grec (150g) + 1 c. à café de miel + 1 banane + cannelle</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Poulet rôti (150g) + 100g de patates douces + légumes verts</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 poignée de fruits secs (abricots, raisins) + 10 amandes</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Galette de sarrasin garnie de jambon, œuf et fromage + salade verte</p>
+                </div>
+            </div>
+            
+            <!-- Days 6-15 (abbreviated for brevity) -->
+            <div class="day-content hidden" id="day-6">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 6</h3>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>Pain sans gluten (2 tranches) + 1 c. à soupe de purée d'amande + 1 fruit</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Salade niçoise : thon (100g) + œuf dur + haricots verts + olives + vinaigrette légère</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 yaourt nature + 1 c. à café de miel</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Dinde grillée (150g) + 100g de riz basmati + légumes sautés</p>
+                </div>
+            </div>
+            
+            <!-- Next days follow same pattern -->
+            <div class="day-content hidden" id="day-7">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 7</h3>
+                <!-- Content for Day 7 -->
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>Omelette (2 œufs) aux champignons + 1 tranche de pain sans gluten</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Steak haché (120g) + 100g de quinoa + ratatouille</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 fruit + 20g de fromage</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Salade complète : 100g de riz brun + légumes crus et cuits + 100g de thon + 1 œuf</p>
+                </div>
+            </div>
+            
+            <!-- Continuing with days 8-15 -->
+            <div class="day-content hidden" id="day-8">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 8</h3>
+                <!-- Content for Day 8 -->
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>Fromage blanc (150g) + fruits frais (100g) + 1 c. à soupe de graines de lin</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Poulet grillé (150g) + 100g de riz sauvage + légumes grillés</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 compote sans sucre ajouté + 10 amandes</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Omelette aux herbes (2 œufs) + 200g de pommes de terre vapeur + salade verte</p>
+                </div>
+            </div>
+            
+            <div class="day-content hidden" id="day-9">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 9</h3>
+                <!-- Content for Day 9 -->
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>2 œufs brouillés + champignons + 1 tranche de pain sans gluten</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Salade de pois chiches (100g) + thon (100g) + légumes variés + vinaigrette légère</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 yaourt nature + 1 fruit</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Filet de cabillaud (150g) + purée de patates douces (150g) + légumes verts</p>
+                </div>
+            </div>
+            
+            <div class="day-content hidden" id="day-10">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 10</h3>
+                <!-- Content for Day 10 -->
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>Yaourt grec (150g) + 1 c. à café de miel + 1 pomme coupée + cannelle</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Bœuf sauté (120g) aux légumes + 100g de riz complet</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>20g de chocolat noir (>70% cacao) + 1 poignée d'amandes</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Tofu poêlé (150g) + légumes sautés + 100g de quinoa</p>
+                </div>
+            </div>
+            
+            <div class="day-content hidden" id="day-11">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 11</h3>
+                <!-- Content for Day 11 -->
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>Pain sans gluten (2 tranches) + 2 c. à soupe de purée d'avocat + 1 œuf au plat</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Salade de riz (100g) + dés de poulet (100g) + légumes + vinaigrette légère</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 fromage blanc + 1 poignée de fruits rouges</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Steak de thon (150g) + 200g de pommes de terre rôties + légumes grillés</p>
+                </div>
+            </div>
+            
+            <div class="day-content hidden" id="day-12">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 12</h3>
+                <!-- Content for Day 12 -->
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>Omelette (2 œufs) aux épinards + 1 tranche de pain sans gluten</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Dinde grillée (150g) + lentilles (100g) + légumes de saison</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 fruit + 10 noix</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Salade complète : 100g de sarrasin + légumes + 100g de saumon fumé</p>
+                </div>
+            </div>
+            
+            <div class="day-content hidden" id="day-13">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 13</h3>
+                <!-- Content for Day 13 -->
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>Fromage blanc (150g) + 1 c. à café de miel + 1 banane + 5 amandes</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Poulet au citron (150g) + 100g de riz brun + légumes vapeur</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 compote sans sucre ajouté + 1 poignée de fruits secs</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Galette de sarrasin garnie d'œuf, fromage et champignons + salade verte</p>
+                </div>
+            </div>
+            
+            <div class="day-content hidden" id="day-14">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 14</h3>
+                <!-- Content for Day 14 -->
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>2 œufs à la coque + 1 tranche de pain sans gluten + 1 fruit</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Salade de quinoa (100g) + thon (100g) + légumes + vinaigrette légère</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 yaourt nature + 1 c. à café de miel</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Filet de dorade (150g) + 200g de pommes de terre vapeur + légumes grillés</p>
+                </div>
+            </div>
+            
+            <div class="day-content hidden" id="day-15">
+                <h3 class="day-title text-lg font-semibold pb-2 mb-4">Jour 15</h3>
+                <!-- Content for Day 15 -->
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Petit-déjeuner</h4>
+                    <p>Yaourt grec (150g) + fruits frais (100g) + 1 c. à soupe de graines de chia</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Déjeuner</h4>
+                    <p>Bœuf grillé (120g) + ratatouille + 100g de polenta</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Collation (optionnelle)</h4>
+                    <p>1 fruit + 20g de fromage</p>
+                </div>
+                
+                <div class="meal-card p-4 rounded-md shadow-sm mb-4">
+                    <h4 class="meal-title font-medium mb-2">Dîner</h4>
+                    <p>Omelette aux légumes (2 œufs) + 100g de riz brun + salade verte</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Liste de Courses -->
+        <div class="tab-content" id="courses">
+            <h2 class="text-xl font-bold mb-6">Liste de Courses</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-primary-color">Protéines</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Poulet (environ 1kg)</li>
+                        <li>Dinde (environ 500g)</li>
+                        <li>Bœuf maigre (environ 500g)</li>
+                        <li>Thon en conserve (3-4 boîtes)</li>
+                        <li>Poisson blanc (cabillaud, dorade) (environ 600g)</li>
+                        <li>Saumon (environ 300g)</li>
+                        <li>Œufs (2 boîtes de 6)</li>
+                        <li>Jambon sans gluten (1 paquet)</li>
+                        <li>Tofu (1 bloc, optionnel)</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3 mt-6 text-primary-color">Féculents Sans Gluten</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Riz brun (1 paquet)</li>
+                        <li>Riz basmati (1 paquet)</li>
+                        <li>Quinoa (1 paquet)</li>
+                        <li>Sarrasin (1 paquet)</li>
+                        <li>Pommes de terre (1kg)</li>
+                        <li>Patates douces (500g)</li>
+                        <li>Pain sans gluten (1 paquet)</li>
+                        <li>Galettes de sarrasin (1 paquet)</li>
+                        <li>Polenta (1 paquet, optionnel)</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3 mt-6 text-primary-color">Légumes</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Salade verte (2 têtes)</li>
+                        <li>Tomates (6-8)</li>
+                        <li>Concombre (2)</li>
+                        <li>Courgettes (3-4)</li>
+                        <li>Poivrons (3-4)</li>
+                        <li>Carottes (1 botte)</li>
+                        <li>Champignons (250g)</li>
+                        <li>Haricots verts (250g)</li>
+                        <li>Épinards frais (1 paquet)</li>
+                        <li>Aubergine (1)</li>
+                        <li>Légumes pour ratatouille</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-primary-color">Fruits</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Pommes (5-6)</li>
+                        <li>Bananes (5-6)</li>
+                        <li>Fruits rouges (1 barquette)</li>
+                        <li>Fruits de saison variés</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3 mt-6 text-primary-color">Produits Laitiers</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Yaourt nature (1 pack de 4)</li>
+                        <li>Yaourt grec (1 pack de 4)</li>
+                        <li>Fromage blanc (1 pot)</li>
+                        <li>Fromage à pâte dure (200g)</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3 mt-6 text-primary-color">Légumineuses</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Lentilles (1 paquet)</li>
+                        <li>Pois chiches (1 boîte)</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3 mt-6 text-primary-color">Matières Grasses</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Huile d'olive (1 bouteille)</li>
+                        <li>Huile de colza (1 bouteille)</li>
+                        <li>Avocat (2-3)</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3 mt-6 text-primary-color">Fruits Secs & Oléagineux</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Amandes (1 sachet)</li>
+                        <li>Noix (1 sachet)</li>
+                        <li>Graines de chia (1 petit paquet)</li>
+                        <li>Graines de lin (1 petit paquet)</li>
+                        <li>Fruits secs variés (abricots, raisins)</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3 mt-6 text-primary-color">Divers</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Miel (1 pot)</li>
+                        <li>Purée d'amande (1 pot)</li>
+                        <li>Compotes sans sucre ajouté (4-6)</li>
+                        <li>Chocolat noir >70% (1 tablette)</li>
+                        <li>Herbes aromatiques (persil, basilic, etc.)</li>
+                        <li>Épices (sel, poivre, cannelle, etc.)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-6 mb-4 bg-white p-4 rounded-md shadow-sm border-l-4 border-secondary-color">
+                <p class="text-sm text-gray-600"><i class="fas fa-info-circle mr-2 text-secondary-color"></i>Cette liste est prévue pour couvrir les 15 jours du programme. Adaptez les quantités selon vos besoins personnels et la taille de votre foyer.</p>
+            </div>
+            
+            <button id="printListBtn" class="btn-secondary px-4 py-2 rounded-md shadow-sm mt-4">
+                <i class="fas fa-print mr-2"></i> Imprimer la liste
+            </button>
+        </div>
+        
+        <!-- Suivi de Progression -->
+        <div class="tab-content" id="suivi">
+            <h2 class="text-xl font-bold mb-6">Suivi de Progression</h2>
+            
+            <div class="bg-white p-5 rounded-md shadow-sm mb-6">
+                <h3 class="text-lg font-semibold mb-3">Objectif : Perdre 2kg en 15 jours</h3>
+                
+                <p class="mb-3">Progression vers votre objectif :</p>
+                <div class="progress-bar">
+                    <div class="progress" id="progressBar" style="width: 0%"></div>
+                </div>
+                <p id="progressText" class="text-center">0% complété</p>
+            </div>
+            
+            <div class="bg-white p-5 rounded-md shadow-sm mb-6">
+                <h3 class="text-lg font-semibold mb-3">Enregistrer votre poids</h3>
+                
+                <div class="flex flex-col md:flex-row md:items-end gap-4 mb-4">
+                    <div class="flex-1">
+                        <label for="weightDay" class="block text-sm font-medium mb-1">Jour</label>
+                        <select id="weightDay" class="w-full p-2 border rounded-md">
+                            <option value="1">Jour 1</option>
+                            <option value="2">Jour 2</option>
+                            <option value="3">Jour 3</option>
+                            <option value="4">Jour 4</option>
+                            <option value="5">Jour 5</option>
+                            <option value="6">Jour 6</option>
+                            <option value="7">Jour 7</option>
+                            <option value="8">Jour 8</option>
+                            <option value="9">Jour 9</option>
+                            <option value="10">Jour 10</option>
+                            <option value="11">Jour 11</option>
+                            <option value="12">Jour 12</option>
+                            <option value="13">Jour 13</option>
+                            <option value="14">Jour 14</option>
+                            <option value="15">Jour 15</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex-1">
+                        <label for="weightInput" class="block text-sm font-medium mb-1">Poids (kg)</label>
+                        <input type="number" id="weightInput" class="w-full p-2 border rounded-md" step="0.1">
+                    </div>
+                    
+                    <button id="saveWeightBtn" class="btn-primary px-4 py-2 rounded-md shadow-sm">
+                        Enregistrer
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-white p-5 rounded-md shadow-sm mb-6">
+                <h3 class="text-lg font-semibold mb-3">Historique de poids</h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Jour</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Poids (kg)</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Variation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="weightTableBody" class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-3 text-sm text-gray-500" colspan="3">Aucune entrée</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="bg-white p-5 rounded-md shadow-sm">
+                <h3 class="text-lg font-semibold mb-3">Journal de suivi</h3>
+                
+                <div class="mb-4">
+                    <label for="journalDay" class="block text-sm font-medium mb-1">Jour :</label>
+                    <select id="journalDay" class="w-full md:w-1/3 p-2 border rounded-md mb-3">
+                        <option value="1">Jour 1</option>
+                        <option value="2">Jour 2</option>
+                        <option value="3">Jour 3</option>
+                        <option value="4">Jour 4</option>
+                        <option value="5">Jour 5</option>
+                        <option value="6">Jour 6</option>
+                        <option value="7">Jour 7</option>
+                        <option value="8">Jour 8</option>
+                        <option value="9">Jour 9</option>
+                        <option value="10">Jour 10</option>
+                        <option value="11">Jour 11</option>
+                        <option value="12">Jour 12</option>
+                        <option value="13">Jour 13</option>
+                        <option value="14">Jour 14</option>
+                        <option value="15">Jour 15</option>
+                    </select>
+                    
+                    <textarea id="journalEntry" class="w-full p-3 border rounded-md mb-3" rows="4" placeholder="Comment vous sentez-vous aujourd'hui ? Avez-vous respecté le programme ? Notez vos impressions..."></textarea>
+                    
+                    <button id="saveJournalBtn" class="btn-primary px-4 py-2 rounded-md shadow-sm">
+                        Enregistrer
+                    </button>
+                </div>
+                
+                <div id="journalEntries" class="mt-4 p-4 bg-gray-50 rounded-md">
+                    <p class="text-gray-500 italic">Les notes enregistrées apparaîtront ici.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Conseils -->
+        <div class="tab-content" id="conseils">
+            <h2 class="text-xl font-bold mb-6">Conseils pour Réussir Votre Régime</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="tip-card p-4 rounded-md shadow-sm">
+                    <h3 class="tip-title font-semibold mb-3">Hydratation</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Buvez 1,5 à 2 litres d'eau par jour</li>
+                        <li>Commencez la journée avec un grand verre d'eau</li>
+                        <li>Gardez une bouteille d'eau à portée de main</li>
+                        <li>Limitez les boissons sucrées et l'alcool</li>
+                        <li>L'eau peut être aromatisée avec des tranches de citron ou concombre</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-card p-4 rounded-md shadow-sm">
+                    <h3 class="tip-title font-semibold mb-3">Gestion des Repas</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Respectez des horaires réguliers pour les repas</li>
+                        <li>Prenez le temps de manger lentement (15-20 minutes minimum)</li>
+                        <li>Évitez de manger devant les écrans</li>
+                        <li>Arrêtez de manger quand vous êtes rassasié, pas quand vous êtes plein</li>
+                        <li>Préparez vos repas à l'avance pour éviter les choix impulsifs</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-card p-4 rounded-md shadow-sm">
+                    <h3 class="tip-title font-semibold mb-3">Alimentation Sans Gluten</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Vérifiez toujours les étiquettes - le gluten peut se cacher dans certains produits inattendus</li>
+                        <li>Privilégiez les aliments naturellement sans gluten plutôt que les substituts industriels</li>
+                        <li>Attention à la contamination croisée lors de la préparation des repas</li>
+                        <li>Les sauces, bouillons et condiments peuvent contenir du gluten</li>
+                        <li>Explorez les céréales naturellement sans gluten: riz, quinoa, sarrasin, millet</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-card p-4 rounded-md shadow-sm">
+                    <h3 class="tip-title font-semibold mb-3">Activité Physique</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Intégrez 30 minutes d'activité modérée par jour</li>
+                        <li>La marche est une excellente option accessible à tous</li>
+                        <li>Privilégiez les escaliers plutôt que l'ascenseur</li>
+                        <li>Même de courtes sessions d'exercice sont bénéfiques</li>
+                        <li>L'exercice aide à réduire le stress, qui peut déclencher des fringales</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-card p-4 rounded-md shadow-sm">
+                    <h3 class="tip-title font-semibold mb-3">Gestion des Tentations</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Identifiez vos déclencheurs émotionnels de grignotage</li>
+                        <li>Gardez des alternatives saines à portée de main</li>
+                        <li>Ne faites pas les courses quand vous avez faim</li>
+                        <li>Autorisez-vous un petit plaisir occasionnel pour éviter les frustrations</li>
+                        <li>Pratiquez la pleine conscience pour reconnaître la vraie faim vs l'envie de manger</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-card p-4 rounded-md shadow-sm">
+                    <h3 class="tip-title font-semibold mb-3">Suivi et Motivation</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Tenez un journal alimentaire pour rester conscient de vos habitudes</li>
+                        <li>Prenez des photos de votre progression</li>
+                        <li>Célébrez les petites victoires, pas seulement la perte de poids</li>
+                        <li>Ne vous découragez pas si votre poids stagne quelques jours</li>
+                        <li>Rappelez-vous que la régularité est plus importante que la perfection</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-card p-4 rounded-md shadow-sm">
+                    <h3 class="tip-title font-semibold mb-3">Après les 15 Jours</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Réintroduisez progressivement de nouveaux aliments</li>
+                        <li>Maintenez les bonnes habitudes acquises</li>
+                        <li>Continuez à surveiller votre poids régulièrement</li>
+                        <li>Adaptez votre alimentation à vos besoins énergétiques</li>
+                        <li>Considérez ce régime comme un tremplin vers un mode de vie sain à long terme</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mentions légales -->
+        <div class="tab-content" id="legal">
+            <h2 class="text-xl font-bold mb-6">Mentions Légales</h2>
+            
+            <div class="bg-white p-5 rounded-md shadow-sm mb-6">
+                <h3 class="text-lg font-semibold mb-3 text-secondary-color">Clause de non-responsabilité médicale</h3>
+                <p class="mb-4">Ce programme n'est pas un avis médical et ne remplace en aucun cas une consultation avec un professionnel de santé. Avant de suivre ce régime ou tout programme de perte de poids, consultez votre médecin, particulièrement si vous souffrez de conditions médicales préexistantes.</p>
+                
+                <h3 class="text-lg font-semibold mb-3 text-secondary-color">Avertissement sur les allergies et intolérances</h3>
+                <p class="mb-4">Bien que ce programme soit conçu sans gluten, il est de la responsabilité de l'utilisateur de vérifier que les produits choisis correspondent à ses besoins spécifiques et restrictions alimentaires.</p>
+                
+                <h3 class="text-lg font-semibold mb-3 text-secondary-color">Limitation de responsabilité</h3>
+                <p class="mb-4">Ai-Me | Au Pays de Marie ne pourra être tenu responsable de tout problème de santé, réaction allergique ou autre conséquence résultant de l'utilisation de cette application ou du suivi de ce programme alimentaire.</p>
+                
+                <h3 class="text-lg font-semibold mb-3 text-secondary-color">Exclusion de garantie</h3>
+                <p class="mb-4">Cette application est fournie "en l'état", sans garantie d'aucune sorte, explicite ou implicite, y compris mais sans s'y limiter, les garanties de performance, d'adéquation à un usage particulier et de non-violation.</p>
+                
+                <h3 class="text-lg font-semibold mb-3 text-secondary-color">Qualification du contenu</h3>
+                <p class="mb-4">Ce programme représente des suggestions alimentaires générales à titre informatif uniquement et non des prescriptions médicales.</p>
+                
+                <h3 class="text-lg font-semibold mb-3 text-secondary-color">Recommandations de suivi professionnel</h3>
+                <p>Pour des conseils personnalisés adaptés à votre situation médicale spécifique, consultez un nutritionniste ou un diététicien certifié.</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-dark-color text-white p-6 mt-8">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2">Ai-Me | Au Pays de Marie</h3>
+                    <p class="text-sm opacity-75">Programme de régime amincissant sans gluten sur 15 jours</p>
+                </div>
+                
+                <div class="text-center md:text-right text-sm">
+                    <p class="mb-2">© 2023 Ai-Me | Au Pays de Marie. Tous droits réservés.</p>
+                    <p>Les informations fournies sont à titre informatif uniquement.</p>
+                </div>
+            </div>
+            
+            <div class="mt-4 pt-4 border-t border-gray-700 text-xs text-center opacity-75">
+                <p>Consultez toujours un professionnel de santé avant de commencer tout régime ou programme de perte de poids.</p>
+            </div>
+        </div>
     </footer>
-
+    
     <script>
-        const meals = [
-            { breakfast: { title: "Pain sans gluten avec beurre d'amande", instructions: "Tartinez du pain sans gluten avec du beurre d'amande." },
-              lunch: { title: "Poulet grillé et légumes vapeur", instructions: "Grillez un filet de poulet et servez-le avec des légumes vapeur." },
-              dinner: { title: "Légumes grillés et filet de poisson", instructions: "Faites griller des légumes et servez avec un filet de poisson." },
-              snack: { title: "Une poignée de noix", instructions: "Prenez une petite poignée de noix nature." } },
-            { breakfast: { title: "Omelette nature avec tomates", instructions: "Faites une omelette avec 2 œufs et des dés de tomates fraîches." },
-              lunch: { title: "Filet de poulet et riz complet", instructions: "Faites cuire un filet de poulet et servez avec du riz complet." },
-              dinner: { title: "Salade de quinoa aux légumes", instructions: "Mélangez du quinoa cuit avec des légumes frais." },
-              snack: { title: "Carré de chocolat noir", instructions: "Prenez un carré de chocolat noir (70% de cacao)." } },
-            { breakfast: { title: "Pain sans gluten et purée d'avocat", instructions: "Tartinez du pain sans gluten avec de l'avocat écrasé et un filet de citron." },
-              lunch: { title: "Poulet au curry avec riz basmati", instructions: "Faites revenir du poulet avec du curry et servez avec du riz basmati." },
-              dinner: { title: "Salade de lentilles aux légumes", instructions: "Mélangez des lentilles cuites avec des légumes frais." },
-              snack: { title: "Un yaourt nature", instructions: "Prenez un yaourt nature sans sucre." } },
-            { breakfast: { title: "Tartines avec purée d'amande", instructions: "Tartinez du pain sans gluten avec de la purée d'amande." },
-              lunch: { title: "Poulet rôti et patates douces", instructions: "Faites cuire un poulet rôti avec des patates douces rôties." },
-              dinner: { title: "Ratatouille maison", instructions: "Préparez une ratatouille avec courgettes, aubergines et tomates." },
-              snack: { title: "Bâtonnets de carotte", instructions: "Coupez des carottes en bâtonnets à grignoter." } },
-            { breakfast: { title: "Fromage blanc et fruits frais", instructions: "Ajoutez des fruits frais à du fromage blanc nature." },
-              lunch: { title: "Steak haché et légumes verts", instructions: "Faites cuire un steak haché avec des légumes verts vapeur." },
-              dinner: { title: "Salade de riz et thon", instructions: "Préparez une salade de riz complet avec du thon, des olives et des tomates cerises." },
-              snack: { title: "Un fruit frais", instructions: "Prenez un fruit de saison." } },
-            { breakfast: { title: "Tartines avec confiture maison", instructions: "Prenez du pain sans gluten avec une confiture maison." },
-              lunch: { title: "Poulet au citron et légumes vapeur", instructions: "Marinez le poulet au citron et servez avec des légumes vapeur." },
-              dinner: { title: "Gratin de légumes", instructions: "Préparez un gratin de légumes avec une béchamel sans gluten." },
-              snack: { title: "Un carré de chocolat noir", instructions: "Savourez un carré de chocolat noir." } },
-            { breakfast: { title: "Pain sans gluten avec beurre de cacahuète", instructions: "Tartinez du pain sans gluten avec un peu de beurre de cacahuète." },
-              lunch: { title: "Saumon grillé avec légumes vapeur", instructions: "Faites griller un pavé de saumon et servez-le avec des légumes vapeur." },
-              dinner: { title: "Riz sauté aux légumes", instructions: "Faites sauter du riz complet avec des légumes frais." },
-              snack: { title: "Une poignée d'amandes", instructions: "Prenez une poignée d'amandes pour l'encas." } },
-            { breakfast: { title: "Pain sans gluten avec purée d'amande", instructions: "Tartinez du pain sans gluten avec de la purée d'amande." },
-              lunch: { title: "Poulet mariné et légumes au four", instructions: "Faites cuire du poulet mariné et des légumes au four." },
-              dinner: { title: "Salade composée", instructions: "Mélangez salade verte, tomates, olives et huile d'olive." },
-              snack: { title: "Un fruit frais", instructions: "Prenez un fruit de saison." } },
-            { breakfast: { title: "Galette de riz avec purée d'avocat", instructions: "Tartinez une galette de riz avec de l'avocat écrasé." },
-              lunch: { title: "Poulet au paprika avec quinoa", instructions: "Marinez du poulet au paprika et servez avec du quinoa." },
-              dinner: { title: "Tofu grillé et légumes croquants", instructions: "Grillez du tofu et servez avec des légumes croquants." },
-              snack: { title: "Un carré de chocolat noir", instructions: "Savourez un carré de chocolat noir." } },
-            { breakfast: { title: "Pain sans gluten avec confiture", instructions: "Prenez du pain sans gluten avec une confiture sans sucre ajouté." },
-              lunch: { title: "Poulet à la moutarde et légumes", instructions: "Marinez le poulet avec de la moutarde et servez avec des légumes vapeur." },
-              dinner: { title: "Gratin de courgettes", instructions: "Préparez un gratin léger avec des courgettes et du fromage." },
-              snack: { title: "Bâtonnets de concombre", instructions: "Coupez des concombres en bâtonnets prêts à grignoter." } },
-            { breakfast: { title: "Crêpes de sarrasin nature", instructions: "Préparez une crêpe de sarrasin nature ou légèrement garnie." },
-              lunch: { title: "Poulet rôti avec légumes", instructions: "Faites cuire un poulet rôti avec des légumes de saison." },
-              dinner: { title: "Soupe de légumes maison", instructions: "Préparez une soupe maison avec des légumes frais." },
-              snack: { title: "Un fruit au choix", instructions: "Prenez un fruit frais de votre choix." } },
-            { breakfast: { title: "Pain sans gluten avec huile d'olive", instructions: "Tartinez du pain sans gluten avec un peu d'huile d'olive." },
-              lunch: { title: "Filet de poisson et riz complet", instructions: "Faites cuire un filet de poisson accompagné de riz complet." },
-              dinner: { title: "Salade de pois chiches", instructions: "Mélangez pois chiches, tomates et oignons rouges." },
-              snack: { title: "Une poignée de noisettes", instructions: "Prenez quelques noisettes pour l'encas." } },
-            { breakfast: { title: "Tartines avec purée d'avocat", instructions: "Tartinez du pain sans gluten avec de l'avocat écrasé." },
-              lunch: { title: "Poulet grillé aux herbes", instructions: "Faites griller du poulet mariné aux herbes fraîches." },
-              dinner: { title: "Salade de lentilles et légumes", instructions: "Mélangez des lentilles cuites avec des légumes frais." },
-              snack: { title: "Un fruit frais", instructions: "Prenez un fruit de saison." } },
-            { breakfast: { title: "Pain sans gluten et beurre d’amande", instructions: "Tartinez du pain avec du beurre d’amande nature." },
-              lunch: { title: "Filet de poisson grillé", instructions: "Faites griller un filet de poisson et servez avec des légumes verts." },
-              dinner: { title: "Ratatouille maison", instructions: "Préparez une ratatouille avec des légumes frais." },
-              snack: { title: "Quelques noix", instructions: "Prenez une poignée de noix nature." } },
-            { breakfast: { title: "Pain sans gluten avec confiture maison", instructions: "Prenez une tartine de confiture maison sur du pain sans gluten." },
-              lunch: { title: "Poulet au citron", instructions: "Faites cuire du poulet avec une marinade citronnée." },
-              dinner: { title: "Poêlée de légumes variés", instructions: "Faites sauter des légumes variés dans un peu d'huile d'olive." },
-              snack: { title: "Un fruit au choix", instructions: "Prenez un fruit de saison." } }
-        ];
-
-        const weightLog = Array(15).fill(""); // Tableau pour enregistrer le poids sur 15 jours
-        let currentDay = 1;
-        let initialWeight = ""; // Poids initial
-        const totalDays = meals.length;
-
-        const dayContent = document.getElementById("day-content");
-        const prevDayButton = document.getElementById("prev-day");
-        const nextDayButton = document.getElementById("next-day");
-
-        function displayDay(dayIndex) {
-            if (dayIndex > totalDays) {
-                displayCongratulations(); // Afficher la page de félicitations après le dernier jour
+        // Tab navigation
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+            
+            // Update active tab button
+            document.querySelectorAll('.nav-item').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+        }
+        
+        // Day navigation
+        function showDay(dayNumber) {
+            // Hide all days
+            document.querySelectorAll('.day-content').forEach(day => {
+                day.classList.remove('active');
+                day.classList.add('hidden');
+            });
+            
+            // Show selected day
+            document.getElementById('day-' + dayNumber).classList.remove('hidden');
+            document.getElementById('day-' + dayNumber).classList.add('active');
+            
+            // Update active day button
+            document.querySelectorAll('.day-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+        }
+        
+        // Weight tracking
+        let weights = [];
+        let startWeight = 0;
+        let targetLoss = 2; // kg to lose
+        
+        document.getElementById('saveWeightBtn').addEventListener('click', function() {
+            const day = parseInt(document.getElementById('weightDay').value);
+            const weight = parseFloat(document.getElementById('weightInput').value);
+            
+            if (isNaN(weight)) {
+                alert('Veuillez entrer un poids valide');
                 return;
             }
-
-            const day = meals[dayIndex - 1];
-            const weight = weightLog[dayIndex - 1] || "";
-
-            dayContent.innerHTML = `
-                <h2>Jour ${dayIndex}</h2>
-                <div class="meal">
-                    <p class="meal-title">Petit-déjeuner : ${day.breakfast.title}</p>
-                    <p class="instructions">${day.breakfast.instructions}</p>
-                </div>
-                <div class="meal">
-                    <p class="meal-title">Déjeuner : ${day.lunch.title}</p>
-                    <p class="instructions">${day.lunch.instructions}</p>
-                </div>
-                <div class="meal">
-                    <p class="meal-title">Dîner : ${day.dinner.title}</p>
-                    <p class="instructions">${day.dinner.instructions}</p>
-                </div>
-                <div class="meal">
-                    <p class="meal-title">Encas : ${day.snack.title}</p>
-                    <p class="instructions">${day.snack.instructions}</p>
-                </div>
-                <div class="water-tracker">
-                    <h3>Suivi de l'eau :</h3>
-                    ${Array.from({ length: 8 }, (_, i) => `<div class="water-cup" onclick="fillCup(this)"></div>`).join("")}
-                </div>
-                <div class="weight-tracker">
-                    <h3>Suivi du poids :</h3>
-                    <label for="weight-input">Poids (kg) :</label>
-                    <input type="number" id="weight-input" value="${weight}" placeholder="Entrez votre poids" oninput="updateWeight(${dayIndex}, this.value)" />
-                </div>
-            `;
-
-            prevDayButton.disabled = dayIndex === 1;
-            nextDayButton.disabled = dayIndex > totalDays;
+            
+            // Check if we already have a weight for this day
+            const existingIndex = weights.findIndex(w => w.day === day);
+            
+            if (existingIndex !== -1) {
+                weights[existingIndex].weight = weight;
+            } else {
+                weights.push({day, weight});
+                // Sort by day
+                weights.sort((a, b) => a.day - b.day);
+            }
+            
+            // Store in localStorage
+            localStorage.setItem('dietWeights', JSON.stringify(weights));
+            
+            // Update table and progress
+            updateWeightTable();
+            updateProgress();
+        });
+        
+        function updateWeightTable() {
+            const tableBody = document.getElementById('weightTableBody');
+            
+            if (weights.length === 0) {
+                tableBody.innerHTML = `<tr><td class="px-4 py-3 text-sm text-gray-500" colspan="3">Aucune entrée</td></tr>`;
+                return;
+            }
+            
+            tableBody.innerHTML = '';
+            
+            weights.forEach((item, index) => {
+                let variation = '';
+                
+                if (index === 0) {
+                    startWeight = item.weight;
+                    variation = '-';
+                } else {
+                    const diff = (item.weight - weights[index-1].weight).toFixed(1);
+                    variation = diff > 0 ? `+${diff}` : diff;
+                }
+                
+                tableBody.innerHTML += `
+                <tr>
+                    <td class="px-4 py-3 text-sm">Jour ${item.day}</td>
+                    <td class="px-4 py-3 text-sm">${item.weight} kg</td>
+                    <td class="px-4 py-3 text-sm ${variation > 0 ? 'text-red-500' : variation < 0 ? 'text-green-500' : ''}">${variation}</td>
+                </tr>
+                `;
+            });
         }
-
-        function displayCongratulations() {
-            const finalWeight = weightLog[totalDays - 1] || ""; // Poids final
-            const weightLost = initialWeight && finalWeight ? (initialWeight - finalWeight).toFixed(1) : null;
-
-            dayContent.innerHTML = `
-                <div class="congratulations">
-                    <h2>Félicitations 🎉</h2>
-                    <p>Vous avez terminé les 15 jours de votre programme !</p>
-                    ${weightLost !== null ? 
-                        `<p>Vous avez perdu <strong>${weightLost} kg</strong> pendant cette période. Bravo ! 🎉</p>` 
-                        : `<p>Merci d'avoir suivi ce régime avec nous. Nous espérons que vous vous sentez en meilleure santé et plein(e) d'énergie.</p>`}
-                    <p>Continuez sur cette belle lancée et prenez soin de vous !</p>
-                </div>
-            `;
-
-            prevDayButton.disabled = false;
-            nextDayButton.disabled = true;
+        
+        function updateProgress() {
+            if (weights.length < 2) return;
+            
+            const initialWeight = weights[0].weight;
+            const currentWeight = weights[weights.length - 1].weight;
+            const weightLoss = initialWeight - currentWeight;
+            
+            // Calculate progress percentage
+            const progressPercent = Math.min(100, Math.max(0, (weightLoss / targetLoss) * 100));
+            
+            // Update progress bar
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+            document.getElementById('progressText').textContent = `${progressPercent.toFixed(0)}% complété`;
         }
-
-        function updateWeight(dayIndex, weight) {
-            weightLog[dayIndex - 1] = weight;
-
-            // Demander le poids initial si c'est le jour 1
-            if (dayIndex === 1 && !initialWeight) {
-                initialWeight = weight;
+        
+        // Journal entries
+        let journalEntries = {};
+        
+        document.getElementById('saveJournalBtn').addEventListener('click', function() {
+            const day = document.getElementById('journalDay').value;
+            const entry = document.getElementById('journalEntry').value.trim();
+            
+            if (!entry) {
+                alert('Veuillez écrire une note avant d\'enregistrer');
+                return;
+            }
+            
+            journalEntries[day] = entry;
+            
+            // Store in localStorage
+            localStorage.setItem('dietJournal', JSON.stringify(journalEntries));
+            
+            // Update display
+            showJournalEntry(day);
+            
+            // Clear textarea
+            document.getElementById('journalEntry').value = '';
+        });
+        
+        document.getElementById('journalDay').addEventListener('change', function() {
+            const day = this.value;
+            showJournalEntry(day);
+        });
+        
+        function showJournalEntry(day) {
+            const entriesDiv = document.getElementById('journalEntries');
+            
+            if (journalEntries[day]) {
+                entriesDiv.innerHTML = `
+                <h4 class="font-medium mb-2">Jour ${day}</h4>
+                <p>${journalEntries[day].replace(/\n/g, '<br>')}</p>
+                `;
+            } else {
+                entriesDiv.innerHTML = `<p class="text-gray-500 italic">Aucune note pour le jour ${day}.</p>`;
             }
         }
-
-        prevDayButton.addEventListener("click", () => {
-            if (currentDay > 1) {
-                currentDay--;
-                displayDay(currentDay);
+        
+        // Print shopping list
+        document.getElementById('printListBtn').addEventListener('click', function() {
+            window.print();
+        });
+        
+        // Load saved data from localStorage
+        window.addEventListener('DOMContentLoaded', function() {
+            // Load weights
+            const savedWeights = localStorage.getItem('dietWeights');
+            if (savedWeights) {
+                weights = JSON.parse(savedWeights);
+                updateWeightTable();
+                updateProgress();
+            }
+            
+            // Load journal entries
+            const savedJournal = localStorage.getItem('dietJournal');
+            if (savedJournal) {
+                journalEntries = JSON.parse(savedJournal);
+                showJournalEntry(document.getElementById('journalDay').value);
             }
         });
-
-        nextDayButton.addEventListener("click", () => {
-            if (currentDay <= totalDays) {
-                currentDay++;
-                displayDay(currentDay);
-            }
-        });
-
-        function fillCup(cup) {
-            cup.classList.toggle("filled");
-        }
-
-        displayDay(currentDay);
     </script>
 </body>
 </html>
